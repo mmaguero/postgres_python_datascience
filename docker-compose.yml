@@ -19,7 +19,7 @@ services:
     ports:
       - 90:80
     environment:
-      PGADMIN_DEFAULT_EMAIL: maguero@udc.es
+      PGADMIN_DEFAULT_EMAIL: marvin.aguero@udc.es
       PGADMIN_DEFAULT_PASSWORD: maguero
     volumes: 
       - ~/STEPS:/var/lib/pgadmin/storage/maguero_udc.es/
