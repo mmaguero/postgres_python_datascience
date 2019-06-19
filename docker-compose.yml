@@ -1,0 +1,55 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    container_name: pg_docker_server
+    image: postgres:9.6-alpine
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: maguero
+
+  admin:
+    container_name: pg_docker_admin
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - 90:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: maguero@udc.es
+      PGADMIN_DEFAULT_PASSWORD: maguero
+    volumes: 
+      - ~/STEPS:/var/lib/pgadmin/storage/maguero_udc.es/
+
+  adminer:
+    container_name: pg_docker_adminer
+    image: adminer
+    restart: always
+    ports:
+      - 8090:8080
+    volumes:
+      - ~/STEPS:/opt/STEPS
+
+  notebook:
+    container_name: nb_docker_jupyter
+    image: jupyter/all-spark-notebook
+    restart: always
+    ports:
+      - 8888:8888
+    volumes:
+      - ~/STEPS:/opt/STEPS
+
+  tensorflow:
+    container_name: nb_docker_ts
+    image: tensorflow/tensorflow:latest-gpu-py3-jupyter
+    restart: always
+    environment:
+      runtime: nvidia
+    ports:
+      - 8889:8888
+    volumes:
+      - ~/STEPS:/opt/STEPS
+
